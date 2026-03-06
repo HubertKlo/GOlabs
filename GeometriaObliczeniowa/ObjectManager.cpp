@@ -18,8 +18,8 @@ void ObjectManager::loadData(const char* file)
 		std::istringstream ss(sline);
 		Point p;
 		ss >> p.id >> p.x >> p.y;
-		p.x *= 30;
-		p.y *= 30;
+		/*p.x *= 30;
+		p.y *= 30;*/
 		std::cout << p << std::endl;
 		addPoint(p);
 	}

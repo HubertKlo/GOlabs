@@ -16,7 +16,7 @@ void VisualCalculator::Play()
 
         drawer->setDrawColor(0, 0, 0, 255);
         drawer->drawLines(data->getLines(), data->getPoints());
-        drawer->setDrawColor(100, 100, 100, 255);
+		drawer->writePointsData(data->getPoints());
         drawer->drawCoordinateSystem();
         drawer->presentCanvas();
         //drawer->setDrawColor(0, 0, 255, 255);
@@ -36,16 +36,16 @@ void VisualCalculator::Play()
                     quit = true;
                     break;
                 case SDLK_LEFT:
-					drawer->camera.x -= 10;
+                    drawer->camera.x -= static_cast<int>(100.0f / drawer->scale);
                     break;
 				case SDLK_RIGHT:
-					drawer->camera.x += 10;
+					drawer->camera.x += static_cast<int>(100.0f / drawer->scale);
                     break;
                 case SDLK_UP:
-					drawer->camera.y -= 10;
+					drawer->camera.y -= static_cast<int>(100.0f / drawer->scale);
                     break;
                 case SDLK_DOWN:
-					drawer->camera.y += 10;
+					drawer->camera.y += static_cast<int>(100.0f / drawer->scale);
                     break;
                 case SDLK_r:
 					drawer->cameraCenterOnPoint({ 0, 0, 0 });

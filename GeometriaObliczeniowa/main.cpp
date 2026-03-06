@@ -16,6 +16,12 @@ int main(int argc, char* argv[])
     }
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
+    if(TTF_Init() < 0)
+    {
+        printf("Couldn't initialize SDL_ttf: %s\n", TTF_GetError());
+        exit(1);
+	}
+
     std::unique_ptr<WindowManager> WINDOW = initWidow("Okienko", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
     std::unique_ptr<ObjectManager> DATA = initObjectManager();
     std::unique_ptr<RendererManager> DRAWER = initRenderer(WINDOW->window,-1,rendererFlags, SCREEN_WIDTH, SCREEN_HEIGHT);

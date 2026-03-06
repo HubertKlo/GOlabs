@@ -19,17 +19,18 @@
 #define General
 
 #include "SDL.h"
+#include "SDL_ttf.h"
 #include <iostream>
 #include <vector>
 #include <memory>
 #include <utility>
+#include <string>
 
 struct Point
 {
     int id, x, y;
     void operator*= (float num);
 };
-
 
 Point operator+ (const Point& a, const Point& b);
 Point operator- (const Point& a, const Point& b);

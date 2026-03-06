@@ -16,17 +16,23 @@ public:
 
     void drawCoordinateSystem();
     void drawPoints(const std::vector<Point>& points);
+	void writePointsData(const std::vector<Point>& points);
     void drawLines(const std::vector<indexLine>& lines, const std::vector<Point>& points);
     void setDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     void clearCavas();
     void presentCanvas();
 
 
-	RendererManager(SDL_Window* win, int index, Uint32 renderer_flags, int w, int h) : renderer(nullptr), rendererFlags(renderer_flags), camera{ 0, 0, w, h }
+	RendererManager(SDL_Window* win, int index, Uint32 renderer_flags, int w, int h) : renderer(nullptr), rendererFlags(renderer_flags), camera{ 0, 0, w, h }, font(nullptr)
     {
         renderer = SDL_CreateRenderer(win, index, renderer_flags);
         if (!renderer) {
             std::cout << "Failed initialize renderer: " << SDL_GetError() << std::endl;
+            exit(1);
+        }
+        font = TTF_OpenFont("font.ttf", 12);
+        if (!font) {
+            std::cout << "Failed initialize font: " << SDL_GetError() << std::endl;
             exit(1);
         }
     }
@@ -34,8 +40,11 @@ public:
     {
         if (renderer)
             SDL_DestroyRenderer(renderer);
+        if(font)
+			TTF_CloseFont(font);
     }
 private:
+    TTF_Font* font;
     SDL_Renderer* renderer;
     Uint32 rendererFlags;
 };
