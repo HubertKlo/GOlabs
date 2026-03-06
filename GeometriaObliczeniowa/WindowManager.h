@@ -5,6 +5,7 @@ class WindowManager
 {
 public:
     SDL_Window* window;
+    int width, height;
 
     WindowManager(const char* title, int x, int y, int w, int h, Uint32 window_flags) : width(w), height(h), windowFlags(window_flags), window(nullptr)
     {
@@ -23,7 +24,6 @@ public:
 
 private:
     Uint32 windowFlags;
-    int width, height;
 
 };
 

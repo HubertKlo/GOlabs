@@ -27,34 +27,27 @@
 struct Point
 {
     int id, x, y;
+    void operator*= (float num);
 };
 
-inline std::ostream& operator<< (std::ostream& os, const Point& p)
-{
-    os << "id: " << p.id << " x: " << p.x << " y: " << p.y;
-    return os;
-}   
+
+Point operator+ (const Point& a, const Point& b);
+Point operator- (const Point& a, const Point& b);
+Point operator* (const Point& a, float num);
+std::ostream& operator<< (std::ostream& os, const Point& p);
 
 struct Line
 {
     Point beginning, end;
 };
 
-inline std::ostream& operator<< (std::ostream& os, const Line& l)
-{
-    os << "beginning: " << l.beginning << " end: " << l.end;
-    return os;
-}
+std::ostream& operator<< (std::ostream& os, const Line& l);
 
 struct indexLine
 {
     int id, id_beginning, id_end;
 };
 
-inline std::ostream& operator<< (std::ostream& os, const indexLine& l)
-{
-    os << "id: " << l.id << " id_beginning: " << l.id_beginning << " id_end: " << l.id_end;
-    return os;
-}
+std::ostream& operator<< (std::ostream& os, const indexLine& l);
 
 #endif // !General
