@@ -6,11 +6,12 @@
 class RendererManager
 {
 public:
-    SDL_Rect camera;
+    SDL_FRect camera;
 	float scale = 1;
 
     void cameraCenterOnPoint(Point p);
 	void adjustPointToCamera(Point& p);
+	void adjustPointFromCameraToCoordinates(Point& p);
 
     void adjustScaleToCavas(const std::vector<Point>& points);
 
@@ -23,7 +24,7 @@ public:
     void presentCanvas();
 
 
-	RendererManager(SDL_Window* win, int index, Uint32 renderer_flags, int w, int h) : renderer(nullptr), rendererFlags(renderer_flags), camera{ 0, 0, w, h }, font(nullptr)
+	RendererManager(SDL_Window* win, int index, Uint32 renderer_flags, int w, int h) : renderer(nullptr), rendererFlags(renderer_flags), camera{ 0, 0, static_cast<float>(w), static_cast<float>(h)}, font(nullptr)
     {
         renderer = SDL_CreateRenderer(win, index, renderer_flags);
         if (!renderer) {

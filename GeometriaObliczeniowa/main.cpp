@@ -3,7 +3,7 @@
 int main(int argc, char* argv[])
 {
     int rendererFlags, windowFlags;
-    int SCREEN_WIDTH = 500, SCREEN_HEIGHT = 500;
+    int SCREEN_WIDTH = 1000, SCREEN_HEIGHT = 700;
 
     rendererFlags = SDL_RENDERER_ACCELERATED;
 

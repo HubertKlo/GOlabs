@@ -36,16 +36,16 @@ void VisualCalculator::Play()
                     quit = true;
                     break;
                 case SDLK_LEFT:
-                    drawer->camera.x -= static_cast<int>(100.0f / drawer->scale);
+                    drawer->camera.x -= 100.0f / drawer->scale;
                     break;
 				case SDLK_RIGHT:
-					drawer->camera.x += static_cast<int>(100.0f / drawer->scale);
+					drawer->camera.x += 100.0f / drawer->scale;
                     break;
                 case SDLK_UP:
-					drawer->camera.y -= static_cast<int>(100.0f / drawer->scale);
+					drawer->camera.y -= 100.0f / drawer->scale;
                     break;
                 case SDLK_DOWN:
-					drawer->camera.y += static_cast<int>(100.0f / drawer->scale);
+					drawer->camera.y += 100.0f / drawer->scale;
                     break;
                 case SDLK_r:
 					drawer->cameraCenterOnPoint({ 0, 0, 0 });
@@ -59,6 +59,17 @@ void VisualCalculator::Play()
 				case SDLK_a:
                     drawer->scale = 1;
                 }
+			}
+
+            if(e.type == SDL_MOUSEBUTTONDOWN)
+            {
+                //nie dzia³a :/
+     //           if (e.button.button == SDL_BUTTON_LEFT)
+     //           {
+     //               Point p{ 0, e.button.x, e.button.y};
+					//drawer->adjustPointFromCameraToCoordinates(p);
+     //               drawer->cameraCenterOnPoint(p);
+     //           }
 			}
         }
         SDL_Delay(16);

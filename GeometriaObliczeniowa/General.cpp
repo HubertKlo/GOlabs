@@ -1,5 +1,43 @@
 #include "General.h"
 
+
+// FPoint
+
+void FPoint::operator*=(float num)
+{
+    x *= num;
+    y *= num;
+}
+
+FPoint operator+(const FPoint& a, const FPoint& b)
+{
+	return FPoint{ 0, a.x + b.x, a.y + b.y };
+}
+
+FPoint operator-(const FPoint& a, const FPoint& b)
+{
+	return FPoint{ 0, a.x - b.x, a.y - b.y };
+}
+
+FPoint operator*(const FPoint& a, float num)
+{
+	return FPoint{ 0, a.x * num, a.y * num };
+}
+
+std::ostream& operator<<(std::ostream& os, const FPoint& p)
+{
+	os << "id: " << p.id << " x: " << p.x << " y: " << p.y;
+	return os;
+}
+
+// Point
+
+void Point::operator*=(float num)
+{
+    x = static_cast<int>(x * num);
+    y = static_cast<int>(y * num);
+}
+
 Point operator+(const Point& a, const Point& b)
 {
     return Point{ 0, a.x + b.x, a.y + b.y };
@@ -21,6 +59,8 @@ std::ostream& operator<<(std::ostream& os, const Point& p)
     return os;
 }
 
+// Lines
+
 std::ostream& operator<<(std::ostream& os, const Line& l)
 {
     os << "beginning: " << l.beginning << " end: " << l.end;
@@ -33,8 +73,3 @@ std::ostream& operator<<(std::ostream& os, const indexLine& l)
     return os;
 }
 
-void Point::operator*=(float num)
-{
-    x = static_cast<int>(x * num);
-    y = static_cast<int>(y * num);
-}

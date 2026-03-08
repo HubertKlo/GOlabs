@@ -25,6 +25,18 @@
 #include <memory>
 #include <utility>
 #include <string>
+struct FPoint
+{
+    int id;
+    float x, y;
+    void operator*= (float num);
+};
+
+FPoint operator+ (const FPoint& a, const FPoint& b);
+FPoint operator- (const FPoint& a, const FPoint& b);
+FPoint operator* (const FPoint& a, float num);
+std::ostream& operator<< (std::ostream& os, const FPoint& p);
+
 
 struct Point
 {
