@@ -85,12 +85,35 @@ class InputHandler{
 
      }
 };
-
-
+class UserWindow{
+private:
+    float zoom=30.0f;
+    float camX=0;
+    float camY=0;
+    float cx = 320;
+    float cy = 240;
+public:
+double WindowPlacementY(double y){
+   return (y - camY) * zoom + cy;
+ }
+double WindowPlacementX(double x){
+   return (x - camX) * zoom + cx;
+ }
+void CamxSetter(double x){
+    camX+=x/zoom;
+}
+void CamySetter(double x){
+    camY+=x/zoom;
+}
+void ZoomSetter(double x){
+    zoom*=x;
+}
+};
 int main(){
 
-    std::vector<double> input;
     InputHandler UserInput;
+    UserWindow UserWin;
+
     std::vector<point> points;
     std::vector<line> lines;
     UserInput.SetInputDocument("Nodes.txt");
@@ -99,7 +122,7 @@ int main(){
     SDL_Init(SDL_INIT_VIDEO);
 
     SDL_Window* window = SDL_CreateWindow(
-        "Mesh viewer",
+        "GOlabs",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         640,
@@ -112,77 +135,51 @@ int main(){
     bool quit=false;
     SDL_Event event;
 
-    float zoom=30.0f;
-    float camX=0;
-    float camY=0;
-    float cx = 320;
-    float cy = 240;
-
     while(!quit){
 
         while(SDL_PollEvent(&event)){
-
             if(event.type==SDL_QUIT)
                 quit=true;
-
+            //Camera movement and zoom control
             if(event.type==SDL_KEYDOWN){
-
                 if(event.key.keysym.sym==SDLK_q)
-                    zoom*=1.1f;
-
+                    UserWin.ZoomSetter(1.1f);
                 if(event.key.keysym.sym==SDLK_e)
-                    zoom*=0.9f;
-
+                    UserWin.ZoomSetter(0.9f);
                 if(event.key.keysym.sym==SDLK_w)
-                    camY-=10/zoom;
-
+                    UserWin.CamySetter(-10);
                 if(event.key.keysym.sym==SDLK_s)
-                    camY+=10/zoom;
-
+                    UserWin.CamySetter(10);
                 if(event.key.keysym.sym==SDLK_a)
-                    camX-=10/zoom;
-
+                    UserWin.CamxSetter(-10);
                 if(event.key.keysym.sym==SDLK_d)
-                    camX+=10/zoom;
-                if(event.key.keysym.sym==SDLK_p){
-                for(auto it:lines){
-                    std::cout<<it.indexp1<< " "<<it.indexp2<<std::endl;
-                    }
-                    std::cout<<zoom<<std::endl;
-                }
+                    UserWin.CamxSetter(10);
             }
         }
         SDL_SetRenderDrawColor(renderer,242,242,242,255);
         SDL_RenderClear(renderer);
-
         SDL_SetRenderDrawColor(renderer,0,0,0,255);
-
+        //Drawing Points
         for(auto it:points){
-
-            float x=(it.x-camX)*zoom+cx;
-            float y=(it.y-camY)*zoom+cy;
-
+            float x=UserWin.WindowPlacementX(it.x);
+            float y=UserWin.WindowPlacementY(it.y);
             SDL_RenderDrawPointF(renderer,x,y);
         }
-
+        //Drawing Lines
         for(auto it:lines){
-
-            float x1=(points[(int)it.indexp1-1].x-camX)*zoom+cx;
-            float y1=(points[(int)it.indexp1-1].y-camY)*zoom+cy;
-
-            float x2=(points[(int)it.indexp2-1].x-camX)*zoom+cx;
-            float y2=(points[(int)it.indexp2-1].y-camY)*zoom+cy;
-
+            float x1=UserWin.WindowPlacementX(points[(int)it.indexp1-1].x);
+            float y1=UserWin.WindowPlacementY(points[(int)it.indexp1-1].y);
+            float x2=UserWin.WindowPlacementX(points[(int)it.indexp2-1].x);
+            float y2=UserWin.WindowPlacementY(points[(int)it.indexp2-1].y);
             SDL_RenderDrawLineF(renderer,x1,y1,x2,y2);
         }
-        
+    //Drawing x and y axies    
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 120);
-    SDL_RenderDrawLineF(renderer,(0 - camX) * zoom + cx, (-100000 - camY) * zoom + cy, (0 - camX) * zoom + cx,(100000 - camY) * zoom + cy);
-    SDL_RenderDrawLineF(renderer,(-100000 - camX) * zoom + cx,(0 - camY) * zoom + cy,(100000 - camX) * zoom + cx,(0 - camY) * zoom + cy);    
+    SDL_RenderDrawLineF(renderer,UserWin.WindowPlacementX(0),UserWin.WindowPlacementY(-10000000),UserWin.WindowPlacementX(0),UserWin.WindowPlacementY(1000000));
+    SDL_RenderDrawLineF(renderer,UserWin.WindowPlacementX(10000000),UserWin.WindowPlacementY(0),UserWin.WindowPlacementX(-1000000),UserWin.WindowPlacementY(0));    
     SDL_RenderPresent(renderer); 
 }
-
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
