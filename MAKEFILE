@@ -1,2 +1,17 @@
-all:
-g++ -I src/include -L src/lib -o main main.cpp -lmingw32 -lSDL2main -lSDL2
+CXX = g++
+CXXFLAGS = -Wall -std=c++17
+LIBS = -lSDL2
+
+SRC = main.cpp Vector.cpp point.cpp line.cpp circle.cpp InputHandler.cpp UserWindow.cpp
+OBJ = $(SRC:.cpp=.o)
+
+TARGET = program
+
+$(TARGET): $(OBJ)
+	$(CXX) $(OBJ) -o $(TARGET) $(LIBS)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJ) $(TARGET)
