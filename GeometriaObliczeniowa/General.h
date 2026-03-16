@@ -23,6 +23,7 @@
 #include <memory>
 #include <utility>
 #include <string>
+#include <cmath>
 #include "Math.h"
 
 #endif // !General

@@ -84,6 +84,16 @@ void RendererManager::drawPoints(const std::vector<Point>& points)
 	}
 }
 
+void RendererManager::drawFPoints(const std::vector<FPoint>& points)
+{
+	for (FPoint p : points)
+	{
+		FPoint temp = p;
+		adjustPointToCamera(temp);
+		SDL_RenderDrawPoint(renderer, temp.x, temp.y);
+	}
+}
+
 void RendererManager::writePointsData(const std::vector<Point>& points)
 {
 	
@@ -97,7 +107,20 @@ void RendererManager::writePointsData(const std::vector<Point>& points)
 	{
 		Point temp = p;
 		adjustPointToCamera(temp);
-		std::string text = std::to_string(p.id) + ": (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")\n" + std::to_string(temp.id) + ": (" + std::to_string(temp.x) + ", " + std::to_string(temp.y) + ")";
+		std::string text = std::to_string(p.id) + ": (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")";
+		drawText(text, temp.x, temp.y);
+	}
+}
+
+void RendererManager::writeFPointsData(const std::vector<FPoint>& fpoints)
+{
+	if (scale < 1)
+		return;
+	for (FPoint p : fpoints)
+	{
+		FPoint temp = p;
+		adjustPointToCamera(temp);
+		std::string text = std::to_string(p.id) + ": (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")";
 		drawText(text, temp.x, temp.y);
 	}
 }
@@ -109,6 +132,19 @@ void RendererManager::drawLines(const std::vector<indexLine>& lines, const std::
 	{
 		a = points[l.id_beginning - 1];
 		b = points[l.id_end - 1];
+		adjustPointToCamera(a);
+		adjustPointToCamera(b);
+		SDL_RenderDrawLine(renderer, a.x, a.y, b.x, b.y);
+	}
+}
+
+void RendererManager::drawFLines(const std::vector<indexLine>& flines, const std::vector<FPoint>& fpoints)
+{
+	FPoint a, b;
+	for (indexLine l : flines)
+	{
+		a = fpoints[l.id_beginning - 1];
+		b = fpoints[l.id_end - 1];
 		adjustPointToCamera(a);
 		adjustPointToCamera(b);
 		SDL_RenderDrawLine(renderer, a.x, a.y, b.x, b.y);

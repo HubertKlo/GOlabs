@@ -57,8 +57,12 @@ void VisualCalculator::Play()
 	mirrorPointOnLine(p2, f1);
 	p2.id = 8;
 	data->addPoint(p2);
-
-
+    //{ 0, 0, 0 }, { 0,1,-1 }
+	// { 0,1,-1 }, { 0,0,0 }
+    data->addCircle({ 0, -4, -4 }, 2, 6);
+    data->addSplitedCircle({ 0, -4, 3.5 }, 1, 8, { { 0,1,-1 }, { 0,0,0 } });
+    data->addSplitedCircle({ 0, 4, -3.5 }, 2, 6, { { 0,1,-1 }, { 0,0,0 } });
+	//data->addCircle({ 0, 4, -4 }, 2, 6);
 
 
     drawer->adjustScaleToCavas(data->getPoints());
@@ -73,13 +77,18 @@ void VisualCalculator::Play()
 
         drawer->setDrawColor(0, 0, 0, 255);
         drawer->drawLines(data->getLines(), data->getPoints());
+		drawer->drawFLines(data->getFLines(), data->getFPoints());
         drawer->drawFullLine(f1);
         drawer->drawFullLine(f2);
-        //drawer->drawExtendedLine(f2, -10, 10);
+        drawer->drawFullLine({ {0,0,0},{0,1,-1} });
+        drawer->drawExtendedLine(f2, -10, 10);
 		drawer->writePointsData(data->getPoints());
+		drawer->writeFPointsData(data->getFPoints());
+
         drawer->drawCoordinateSystem();
         drawer->setDrawColor(255, 0, 0, 255);
         drawer->drawPoints(data->getPoints());
+		drawer->drawFPoints(data->getFPoints());
         drawer->presentCanvas();
         //imput
 
