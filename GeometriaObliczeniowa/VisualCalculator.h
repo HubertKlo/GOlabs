@@ -2,6 +2,7 @@
 #include "WindowManager.h"
 #include "ObjectManager.h"
 #include "RendererManager.h"
+#include <chrono>
 
 class VisualCalculator
 {

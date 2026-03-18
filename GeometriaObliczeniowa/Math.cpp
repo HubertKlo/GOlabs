@@ -295,3 +295,44 @@ bool isPointInsidePolygon(const FPoint& p, const std::initializer_list<FPoint>& 
     return isPointInsidePolygon(p, points);
 }
 
+size_t countPointsInsidePolygon(const std::vector<FPoint>& polygon, const std::vector<FPoint>& pool)
+{
+	FPoint max{ 0, std::numeric_limits<float>::lowest(), std::numeric_limits<float>::lowest() };
+    FPoint min{ 0, std::numeric_limits<float>::max(), std::numeric_limits<float>::max() };
+	findEdgePoints(max, min, polygon);
+	size_t count = 0;
+    for(const auto& point : pool) {
+        count += isPointInsideBoundries(point,max,min) && isPointInsidePolygon(point, polygon);
+	}
+
+    return count;
+}
+
+size_t countPointsInsideTriangle(FPoint a, FPoint b, FPoint c, const std::vector<FPoint>& pool)
+{
+	FPoint max{ 0, std::max({ a.x, b.x, c.x }), std::max({ a.y, b.y, c.y }) };
+	FPoint min{ 0, std::min({ a.x, b.x, c.x }), std::min({ a.y, b.y, c.y }) };
+	size_t count = 0;
+    for(const auto& point : pool) {
+        count += isPointInsideBoundries(point,max,min) && isPointInsideTriange(point, a, b, c);
+    }
+	return count;
+}
+
+void findEdgePoints(FPoint& max, FPoint& min, const std::vector<FPoint>& pool)
+{
+    for (const auto& point : pool) {
+        if (point.x > max.x) max.x = point.x;
+        if (point.y > max.y) max.y = point.y;
+        if (point.x < min.x) min.x = point.x;
+        if (point.y < min.y) min.y = point.y;
+	}
+}
+
+bool isPointInsideBoundries(const FPoint& p, const FPoint& max, const FPoint& min)
+{
+	return p.x >= min.x && p.x <= max.x && p.y >= min.y && p.y <= max.y;
+}
+
+
+

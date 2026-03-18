@@ -100,4 +100,10 @@ bool isPointInsideTriange(const FPoint& p, const FPoint& a, const FPoint& b, con
 bool isPointInsidePolygon(const FPoint& p, const std::vector<FPoint>& points);
 bool isPointInsidePolygon(const FPoint& p, const std::initializer_list<FPoint>& points);
 
+size_t countPointsInsidePolygon(const std::vector<FPoint>& polygon, const std::vector<FPoint>& pool);
+size_t countPointsInsideTriangle(FPoint a, FPoint b, FPoint c, const std::vector<FPoint>& pool);
+
+void findEdgePoints(FPoint& max, FPoint& min, const std::vector<FPoint>& pool);
+bool isPointInsideBoundries(const FPoint& p, const FPoint& max, const FPoint& min);
+
 #endif // !MATH

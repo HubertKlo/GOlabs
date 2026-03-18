@@ -7,14 +7,16 @@ void VisualCalculator::Play()
 	
     //SegmentLine f1{ {0,1,1}, { 0,0,0 } };
 	//SegmentLine f2{ 0,2,1,0,0,0};
+    
 
-	data->addPoint(2,1);
-	data->addPoint(0,0);
-	//data->addPoint(1,1);
-	//data->addPoint(2,0);
-	//data->addPoint(2,2);
-	//data->addPoint(-1,-1);
-	data->addPoint(4,2);
+	//data->addPoint(2,1);
+	//data->addPoint(0,0);
+	//data->addPoint(4,2);
+	//data->addPoint(4, 0);
+ //   data->addPoint(4, 4);
+ //   data->addPoint(1, 1);
+ //   data->addPoint(-1, -1);
+ //   data->addPoint(-4, -4);
 
 	//data->addLine(1, 2);
 
@@ -22,19 +24,24 @@ void VisualCalculator::Play()
     //std::cout << "punkt 1: " << isPointInsideTriange({ 0,2,1,0 }, { 0, 3, -1, 0 }, { 0,2,2,0 }, { 0,-1,2,0 }) << std::endl;
     //std::cout << "punkt 2: " << isPointInsideTriange({ 0,0,0,0 }, { 0, 3, -1, 0 }, { 0,2,2,0 }, { 0,-1,2,0 }) << std::endl;
     //std::cout << "punkt 3: " << isPointInsideTriange({ 0,4,2,0 }, { 0, 3, -1, 0 }, { 0,2,2,0 }, { 0,-1,2,0 }) << std::endl;
-    data->addPolygon({
-        {0,3,-1,0},
-        {0,2,2,0},
-        {0,-1,2,0},
+    //data->addPolygon({
+    //    {0,3,-1,0},
+    //    {0,2,2,0},
+    //    {0,-1,2,0},
 
-        {0,-3,1,0},
-        {0,-1,-3,0},
-        {0,0,0,0}
-        });
+    //    {0,-3,1,0},
+    //    {0,-1,-3,0},
+    //    {0,0,0,0}
+    //    });
     //{{ 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 }}
-    std::cout << "punkt 1: " << isPointInsidePolygon({ 0,2,1,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
-    std::cout << "punkt 2: " << isPointInsidePolygon({ 0,0,0,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
-    std::cout << "punkt 3: " << isPointInsidePolygon({ 0,4,2,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
+ //   std::cout << "punkt 1: " << isPointInsidePolygon({ 0,2,1,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
+ //   std::cout << "punkt 2: " << isPointInsidePolygon({ 0,0,0,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
+ //   std::cout << "punkt 3: " << isPointInsidePolygon({ 0,4,2,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
+	//std::cout << "punkt 4: " << isPointInsidePolygon({ 0,4,0,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
+ //   std::cout << "punkt 5: " << isPointInsidePolygon({ 0,4,4,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
+ //   std::cout << "punkt 6: " << isPointInsidePolygon({ 0,1,1,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
+ //   std::cout << "punkt 7: " << isPointInsidePolygon({ 0,-1,-1,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
+ //   std::cout << "punkt 8: " << isPointInsidePolygon({ 0,-4,-4,0 }, { { 0, 3, -1, 0 },{ 0,2,2,0 },{ 0,-1,2,0 },{ 0,-3,1,0 },{ 0,-1,-3,0 },{ 0,0,0,0 } }) << std::endl;
 
     //SegmentLine f2 = f1;
 	//moveLineByVector(f1, { 0, -1, 1 });
@@ -50,7 +57,7 @@ void VisualCalculator::Play()
 	//data->addCircle({ 0, 4, -4 }, 2, 6);
 
 
-    drawer->adjustScaleToCavas(data->getPoints());
+    //drawer->adjustScaleToCavas(data->getPoints());
     drawer->cameraCenterOnPoint({ 0, 0, 0 });
     SDL_Event e;
     bool quit = false;
@@ -66,13 +73,14 @@ void VisualCalculator::Play()
 
 		drawer->drawFLines(data->getFLines(), data->getFPoints());
 
+
         //drawer->drawFullLine(f1);
         //drawer->drawFullLine(f2);
         //drawer->drawFullLine({ {0,0,0},{0,1,-1} });
         //drawer->drawExtendedLine(f2, -10, 10);
-		drawer->writePointsData(data->getPoints());
-		drawer->writeFPointsData(data->getFPoints());
-        drawer->writeFLineGroup(data->getFLines(), data->getFPoints());
+		//drawer->writePointsData(data->getPoints());
+		//drawer->writeFPointsData(data->getFPoints());
+        //drawer->writeFLineGroup(data->getFLines(), data->getFPoints());
 
         drawer->drawCoordinateSystem();
         drawer->setDrawColor(255, 0, 0, 255);

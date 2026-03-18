@@ -156,8 +156,8 @@ void RendererManager::drawLines(const std::vector<indexLine>& lines, const std::
 	Point a, b;
 	for (auto& l : lines)
 	{
-		a = points[l.id_beginning - 1];
-		b = points[l.id_end - 1];
+		a = points[l.id_beginning];
+		b = points[l.id_end];
 		adjustPointToCamera(a);
 		adjustPointToCamera(b);
 		SDL_RenderDrawLine(renderer, a.x, a.y, b.x, b.y);
@@ -169,8 +169,8 @@ void RendererManager::drawFLines(const std::vector<indexLine>& flines, const std
 	FPoint a, b;
 	for (auto& l : flines)
 	{
-		a = fpoints[l.id_beginning - 1];
-		b = fpoints[l.id_end - 1];
+		a = fpoints[l.id_beginning];
+		b = fpoints[l.id_end];
 		adjustPointToCamera(a);
 		adjustPointToCamera(b);
 		SDL_RenderDrawLine(renderer, a.x, a.y, b.x, b.y);

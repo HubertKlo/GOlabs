@@ -26,25 +26,28 @@ public:
 	const std::vector<FPoint>& getFPoints();
 	const std::vector<indexLine>& getFLines();
 
-    //void addPoint(Point p);
+    void addPoint(Point p);
     void addPoint(int x, int y);
     void addPoint(int x, int y, size_t group);
 
-    //void addFPoint(FPoint p);
+    void addFPoint(FPoint p);
     void addFPoint(float x, float y);
     void addFPoint(float x, float y, size_t group);
 
-    //void addLine(indexLine l);
+    void addLine(indexLine l);
     void addLine(size_t i1, size_t i2);
     void addLine(size_t i1, size_t i2, size_t group);
 
-    //void addFLine(indexLine l);
+    void addFLine(indexLine l);
     void addFLine(size_t i1, size_t i2);
     void addFLine(size_t i1, size_t i2, size_t group);
 
     void addTriangle(FPoint a, FPoint b, FPoint c);
 
     void addPolygon(std::initializer_list<FPoint> list);
+    //{6,5,4,3,2,1}
+	std::vector<FPoint> getFGroup(size_t groupID);
+
 
     
 

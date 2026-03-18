@@ -3,7 +3,7 @@
 int main(int argc, char* argv[])
 {
     int rendererFlags, windowFlags;
-    int SCREEN_WIDTH = 1000, SCREEN_HEIGHT = 700;
+    int SCREEN_WIDTH = 1000, SCREEN_HEIGHT = 500;
 
     rendererFlags = SDL_RENDERER_ACCELERATED;
 
@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     std::unique_ptr<RendererManager> DRAWER = initRenderer(WINDOW->window,-1,rendererFlags, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     VisualCalculator App(std::move(WINDOW), std::move(DATA), std::move(DRAWER));
-	//App.LoadData("data.txt");
+	App.LoadData("punkty.txt");
 	App.Play();
 
     
