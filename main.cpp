@@ -13,10 +13,12 @@ int main()
     InputHandler UserInput;
     UserWindow UserWin;
 
-    std::vector<point> points;
-    std::vector<line> lines;
+    std::vector<point> points,points2;
+    std::vector<line> lines,lines2;
     UserInput.SetInputDocument("Nodes.txt");
     UserInput.GetInputByDocument(&points, &lines);
+    UserInput.SetInputDocument("Nodes2.txt");
+    UserInput.GetInputByDocument(&points2, &lines2);
 
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -45,8 +47,8 @@ int main()
     Vector v1(0, 0);
     circle s1(0, 0, 2);
     circle s2(0, 0, 2);
-    s1.GenerateCircle(17);
-    // s1.SlashCricle(&lines[5], s2);
+    s1.GenerateCircle(5);
+    //s1.SlashCricle(&lines[5], s2);
 
     while (!quit)
     {
@@ -86,6 +88,14 @@ int main()
             float x = UserWin.WindowPlacementX(it.x);
             float y = UserWin.WindowPlacementY(it.y);
             SDL_RenderDrawPointF(renderer, x, y);
+        }
+        for (auto it : points2)
+        {
+            float x = UserWin.WindowPlacementX(it.x);
+            float y = UserWin.WindowPlacementY(it.y);
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 120);
+            SDL_RenderDrawPointF(renderer, x, y);
+            it.print_point();
         }
         // Drawing Lines
         for (auto it : lines)
