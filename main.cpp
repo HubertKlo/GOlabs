@@ -6,19 +6,38 @@
 #include <iostream>
 #include <sstream>
 #include "scrp/headers/MyLib.h"
-
+int HowManyPointsInside(std::vector<line> *lines,std::vector<point> *points){
+    int count=0;
+    for(auto it:*points){
+        int left=0;
+        int right=0;
+        for(auto iit:*lines){
+            point x = iit.PointOfCross(0,1,-it.y,points);
+            // x.print_point();
+            if(x.id==-1){
+                // std::cout<<iit.indexp1<<"->"<<iit.indexp2<<"x: "<<x.x<<" it: "<<it.x<<std::endl;
+                if(x.x>it.x)right++;
+                else if(x.x<it.x)left++;
+                // std::cout<<"id : "<<it.id<<"\nright : "<<right<<" "<<"left : "<<left<<"\n";
+            }
+            
+        }
+        // if(right!=0||left!=0)
+        //     std::cout<<it.id<< ":id left "<<left<< " right "<<right<<std::endl;
+        if(right%2!=0&&left%2!=0)count++;
+    }
+    return count;
+}
 int main()
 {
-
     InputHandler UserInput;
     UserWindow UserWin;
 
-    std::vector<point> points,points2;
-    std::vector<line> lines,lines2;
+    std::vector<point> points;
+    std::vector<line> lines;
     UserInput.SetInputDocument("Nodes.txt");
     UserInput.GetInputByDocument(&points, &lines);
-    UserInput.SetInputDocument("Nodes2.txt");
-    UserInput.GetInputByDocument(&points2, &lines2);
+
 
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -34,22 +53,13 @@ int main()
 
     bool quit = false;
     SDL_Event event;
-
-    // line l1(10,&points[0],&points[1]);
-    line *l1 = &lines[3];
-    l1->setCalc(&points);
-    //l1->PrintCoff();
-    lines[5].setCalc(&points);
-    lines[4].setCalc(&points);
-   // std::cout << l1->IfPointOnLine(&points[2]) << std::endl;
-    // std::cout<<l1->IfPointOnLine(&points[1]);
-    
+    for(int i=0;i<lines.size();i++){
+        lines[i].setCalc(&points);
+    }
     Vector v1(0, 0);
     circle s1(0, 0, 2);
-    circle s2(0, 0, 2);
     s1.GenerateCircle(5);
-    //s1.SlashCricle(&lines[5], s2);
-
+    std::cout<<"\n"<<HowManyPointsInside(&lines,&points);
     while (!quit)
     {
 
@@ -75,7 +85,7 @@ int main()
                 if (event.key.keysym.sym == SDLK_t)
                 {
                     // lines[2].TransByVector(&v1,&points);
-                    lines[2].ReflectPoint(&points[4]);
+                    //lines[2].ReflectPoint(&points[4]);
                 }
             }
         }
@@ -89,21 +99,13 @@ int main()
             float y = UserWin.WindowPlacementY(it.y);
             SDL_RenderDrawPointF(renderer, x, y);
         }
-        for (auto it : points2)
-        {
-            float x = UserWin.WindowPlacementX(it.x);
-            float y = UserWin.WindowPlacementY(it.y);
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 120);
-            SDL_RenderDrawPointF(renderer, x, y);
-            it.print_point();
-        }
-        // Drawing Lines
+        //Drawing Lines
         for (auto it : lines)
         {
-            float x1 = UserWin.WindowPlacementX(points[(int)it.indexp1 - 1].x);
-            float y1 = UserWin.WindowPlacementY(points[(int)it.indexp1 - 1].y);
-            float x2 = UserWin.WindowPlacementX(points[(int)it.indexp2 - 1].x);
-            float y2 = UserWin.WindowPlacementY(points[(int)it.indexp2 - 1].y);
+            float x1 = UserWin.WindowPlacementX(points[(int)it.indexp1 ].x);
+            float y1 = UserWin.WindowPlacementY(points[(int)it.indexp1 ].y);
+            float x2 = UserWin.WindowPlacementX(points[(int)it.indexp2 ].x);
+            float y2 = UserWin.WindowPlacementY(points[(int)it.indexp2 ].y);
             SDL_RenderDrawLineF(renderer, x1, y1, x2, y2);
         }
         // Drawing circle n
@@ -113,14 +115,6 @@ int main()
             float y1 = UserWin.WindowPlacementY(s1.GetPoints()[(int)it.indexp1 - 1].y);
             float x2 = UserWin.WindowPlacementX(s1.GetPoints()[(int)it.indexp2 - 1].x);
             float y2 = UserWin.WindowPlacementY(s1.GetPoints()[(int)it.indexp2 - 1].y);
-            SDL_RenderDrawLineF(renderer, x1, y1, x2, y2);
-        }
-        for (auto it : s2.GetLines())
-        {
-            float x1 = UserWin.WindowPlacementX(s2.GetPoints()[(int)it.indexp1 - 1].x);
-            float y1 = UserWin.WindowPlacementY(s2.GetPoints()[(int)it.indexp1 - 1].y);
-            float x2 = UserWin.WindowPlacementX(s2.GetPoints()[(int)it.indexp2 - 1].x);
-            float y2 = UserWin.WindowPlacementY(s2.GetPoints()[(int)it.indexp2 - 1].y);
             SDL_RenderDrawLineF(renderer, x1, y1, x2, y2);
         }
         // Drawing x and y axies

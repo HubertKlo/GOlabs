@@ -15,10 +15,10 @@
     }
     void line::TransByVector(Vector *v1, std::vector<point> *points)
     {
-        (*points)[(int)indexp2 - 1].x += v1->getx();
-        (*points)[(int)indexp2 - 1].y += v1->gety();
-        (*points)[(int)indexp1 - 1].x += v1->getx();
-        (*points)[(int)indexp1 - 1].y += v1->gety();
+        (*points)[(int)indexp2].x += v1->getx();
+        (*points)[(int)indexp2].y += v1->gety();
+        (*points)[(int)indexp1].x += v1->getx();
+        (*points)[(int)indexp1].y += v1->gety();
     }
     void line::PrintCoff()
     {
@@ -36,8 +36,8 @@
     }
     void line::setCalc(std::vector<point> *points)
     {
-        point *p1 = &(*points)[(int)indexp1 - 1];
-        point *p2 = &(*points)[(int)indexp2 - 1];
+        point *p1 = &(*points)[(int)indexp1];
+        point *p2 = &(*points)[(int)indexp2];
 
         a = p1->y - p2->y;
         b = p2->x - p1->x;
@@ -49,8 +49,8 @@
         return abs(a * p->x + b * p->y + c) < ACCURENCY;
     }
     bool line::IfPointOnLineSeg(point *p,std::vector<point> *points){
-        point *p1 = &(*points)[(int)indexp1 - 1];
-        point *p2 = &(*points)[(int)indexp2 - 1];
+        point *p1 = &(*points)[(int)indexp1];
+        point *p2 = &(*points)[(int)indexp2];
         if(!IfPointOnLine(p))
             return 0;
         double minx = std::min(p1->x, p2->x);
@@ -71,3 +71,19 @@
         p->y =p->y - 2*b*d;
         }
     }
+
+    point line::PointOfCross(double A,double B,double C,std::vector<point> *points){
+        double W = A * b - a * B;
+            if(std::fabs(W)>=ACCURENCY){
+                 double x = (B * c -b * C) / W;
+                 double y = (C * a - c * A) / W;
+                point p = point(-1,x,y);
+                if(this->IfPointOnLineSeg(&p,points))
+                    return p;
+                else
+                    return point(-2,0,0);
+            }else{
+             return point(-2,0,0) ;
+            }
+    }
+    

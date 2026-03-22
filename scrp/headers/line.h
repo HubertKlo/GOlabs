@@ -18,6 +18,6 @@ public:
     bool IfPointOnLine(point *p);
     void ReflectPoint(point *p);
     bool IfPointOnLineSeg(point *p,std::vector<point> *points);
-
+    point PointOfCross(double A,double B,double C,std::vector<point> *points);
 };
 #endif

@@ -11,5 +11,6 @@ public:
     point(double i, double a, double b);
     void TransByVector(Vector *v1);
     void print_point();
+
 };
 #endif
