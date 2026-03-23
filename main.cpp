@@ -4,29 +4,45 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <chrono>
 #include <sstream>
 #include "scrp/headers/MyLib.h"
-int HowManyPointsInside(std::vector<line> *lines,std::vector<point> *points){
+int HowManyPointsInside(std::vector<line> *lines,std::vector<point> *points,std::vector<point>*allpoints){
     int count=0;
     for(auto it:*points){
         int left=0;
         int right=0;
         for(auto iit:*lines){
-            point x = iit.PointOfCross(0,1,-it.y,points);
-            // x.print_point();
+            point x = iit.PointOfCross(0,1,-it.y,allpoints);
             if(x.id==-1){
-                // std::cout<<iit.indexp1<<"->"<<iit.indexp2<<"x: "<<x.x<<" it: "<<it.x<<std::endl;
                 if(x.x>it.x)right++;
                 else if(x.x<it.x)left++;
-                // std::cout<<"id : "<<it.id<<"\nright : "<<right<<" "<<"left : "<<left<<"\n";
             }
             
         }
-        // if(right!=0||left!=0)
-        //     std::cout<<it.id<< ":id left "<<left<< " right "<<right<<std::endl;
         if(right%2!=0&&left%2!=0)count++;
     }
     return count;
+}
+int FasterHowMany(std::vector<line> *lines,std::vector<point> *points,std::vector<point>*allpoints){
+    std::vector<point>newpoints;
+    double minX = 1e18, minY = 1e18;
+    double maxX = -1e18, maxY = -1e18;
+    for(auto it:*lines){
+        point p1 = (*points)[it.indexp1];
+        point p2 = (*points)[it.indexp2];
+        minX = std::min(minX, std::min(p1.x, p2.x));
+        minY = std::min(minY, std::min(p1.y, p2.y));
+        maxX = std::max(maxX, std::max(p1.x, p2.x));
+        maxY = std::max(maxY, std::max(p1.y, p2.y));
+    }
+    for(auto it:*points){
+        if (it.x >= minX && it.x <= maxX &&
+                 it.y >= minY && it.y <= maxY) {
+            newpoints.push_back(it);
+        }
+    }
+    return HowManyPointsInside(lines,&newpoints,allpoints);
 }
 int main()
 {
@@ -59,7 +75,14 @@ int main()
     Vector v1(0, 0);
     circle s1(0, 0, 2);
     s1.GenerateCircle(5);
-    std::cout<<"\n"<<HowManyPointsInside(&lines,&points);
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+    std::cout<<HowManyPointsInside(&lines,&points,&points);
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+    begin = std::chrono::steady_clock::now();
+    std::cout<<FasterHowMany(&lines,&points,&points);
+    end = std::chrono::steady_clock::now();
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
     while (!quit)
     {
 

@@ -26,6 +26,8 @@
     }
     bool line::PosOfPoint(point *p1)
     {
+        //1->rightside
+        //0->2leftside
         return (a*p1->x + b*p1->y + c > 0);
     }
     double line::DistanceFromLine(point *p1)
@@ -78,8 +80,15 @@
                  double x = (B * c -b * C) / W;
                  double y = (C * a - c * A) / W;
                 point p = point(-1,x,y);
-                if(this->IfPointOnLineSeg(&p,points))
-                    return p;
+                if(this->IfPointOnLineSeg(&p,points)){
+                    double y1 = (*points)[indexp1].y - -C/B;
+                    double y2 = (*points)[indexp2].y - -C/B;
+                   if ((y1 > 0 && y2 <= 0) || (y2 > 0 && y1 <= 0)){
+                        return p;
+                    }else{
+                        return point(-2,0,0);
+                    }
+                }
                 else
                     return point(-2,0,0);
             }else{

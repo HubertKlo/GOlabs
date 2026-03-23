@@ -1,5 +1,6 @@
 #include "point.h"
 #include <iostream>
+#include <cmath>
 
     point::point()
     {
@@ -22,4 +23,8 @@
     {
         std::cout<<x<<" "<<y<<"\n";
     }
-    
+
+    double point::PointDistanceToPoint(point *p1)
+    {
+        return sqrt(powl(p1->x-x,2)+powl(p1->y-y,2));
+    }

@@ -6,8 +6,6 @@ void InputHandler::SetInputDocument(std::string Filename)
         if (!Nodes.is_open())
         {
             std::cerr << "Nie mozna otworzyc pliku\n";
-        }else{
-            std::cerr << "mozna otworzyc pliku\n";
         }
     }
 void InputHandler::GetInputByDocument(std::vector<point> *points, std::vector<line> *lines)
