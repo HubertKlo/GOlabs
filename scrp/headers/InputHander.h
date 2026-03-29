@@ -14,5 +14,6 @@ class InputHandler
 public:
     void SetInputDocument(std::string Filename);
     void GetInputByDocument(std::vector<point> *points, std::vector<line> *lines);
+    void PointsInputHandler(std::vector<point> &points);
 };
 #endif

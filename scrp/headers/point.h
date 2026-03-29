@@ -12,5 +12,6 @@ public:
     void TransByVector(Vector *v1);
     void print_point();
     double PointDistanceToPoint(point *p1);
+    double ScalarProduct(point *p1);
 };
 #endif

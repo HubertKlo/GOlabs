@@ -28,3 +28,9 @@
     {
         return sqrt(powl(p1->x-x,2)+powl(p1->y-y,2));
     }
+
+    double point::ScalarProduct(point *p1)
+    {
+        
+        return 0.0;
+    }

@@ -1,6 +1,6 @@
  #include "Vector.h"   
  #include <cmath>
-    
+
     double Vector::getx() { return x; }
     double Vector::gety() { return y; }
     void Vector::setx(double x) { this->x = x; }
@@ -15,6 +15,14 @@
         double dis = sqrtl(x * x + y * y);
         this->setx(x / dis);
         this->sety(y / dis);
+    }
+    double Vector::lenght()
+    {
+        return sqrtl(x*x+y*y);
+    }
+    double Vector::ScalarProduct(Vector v1)
+    {
+        return x*v1.x+y*v1.y;
     }
     void Vector::operator*=(double n)
     {
