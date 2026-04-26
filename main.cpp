@@ -110,7 +110,7 @@ void GrahamScan(std::vector<line>* lines, std::vector<point>* points) {
             double db = (b.x-pivot.x)*(b.x-pivot.x) + (b.y-pivot.y)*(b.y-pivot.y);
             return da < db;
         });
-    std::vector<int> stack; 
+    std::vector<int> stack;
     stack.push_back(0);
     stack.push_back(1);
 
@@ -127,7 +127,7 @@ void GrahamScan(std::vector<line>* lines, std::vector<point>* points) {
                          - (A.y - O.y) * (B.x - O.x);
 
             if (cross > 0) break;
-            stack.pop_back();    
+            stack.pop_back();
         }
         stack.push_back(i);
     }
@@ -136,6 +136,7 @@ void GrahamScan(std::vector<line>* lines, std::vector<point>* points) {
     }
     lines->push_back(line(stack.size() - 1, stack[0], stack[stack.size() - 1]));
 }
+
 int main()
 {
     InputHandler UserInput;
@@ -179,6 +180,7 @@ int main()
     // std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 
     GrahamScan(&lines,&points);
+
     while (!quit)
     {
 
