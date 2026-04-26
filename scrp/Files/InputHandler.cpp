@@ -69,3 +69,17 @@ void InputHandler::GetInputByDocument(std::vector<point> *points, std::vector<li
             }
         }
     }
+void InputHandler::PointsInputHandler(std::vector<point> &points){
+    std::string s;
+    Nodes>>s;
+    int amount=stoi(s);
+    int i=0;
+   for(int i=0;i<amount;i++){
+                double x,y;
+                Nodes>>s;
+                x=stod(s);
+                Nodes>>s;
+                y=stod(s); 
+                points.push_back(point(i,x,-y));
+    }   
+}
